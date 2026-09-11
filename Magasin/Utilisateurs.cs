@@ -8,22 +8,27 @@ namespace Magasin;
 public class Utilisateurs
 {
 
-    string Nom {get; set; }
+    public string Nom { get; set; }
 
     private static int currentID;
 
     public int ID;
 
-    int Mot_de_passe { get; set; }
+    private int Mot_de_passe { get; set; }
 
-    string Role { get; set; }
+    public string Role { get; set; }
 
-    List<Object> Inventaire { get; set; }
+    private List<Object> Inventaire { get; set; }
 
-    List<Object> Achat_item { get; }
+    private List<Object> Achat_item { get; }
 
 
-
+    /// <summary>
+    /// COnstructeur de la classe des utilisateurs
+    /// </summary>
+    /// <param name="nom">Nom de l'utilisateur</param>
+    /// <param name="mot_de_passe">Mot de passe de connection</param>
+    /// <param name="role">Le rôle de l'utilisateur dans le magasin</param>
     public Utilisateurs(string nom, int mot_de_passe, string role)
     {
         this.Nom = nom;
@@ -37,4 +42,5 @@ public class Utilisateurs
 
     }
 
+    //TODO: Faire les méthodes de classes suivante : afficherItems, afficherUnItem, acheterItem, afficherInventaire
 }
