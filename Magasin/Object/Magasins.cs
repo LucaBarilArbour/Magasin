@@ -3,26 +3,27 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Magasin.Object;
 
 namespace Magasin;
 
 internal class Magasins
 {
     public string Nom{  get; set; }
-    public List<Object> Inventaire { get; set; }
-    public List<Object> ListeUtilisateurs { get; set; }
+    public List<Item> Inventaire { get; set; }
+    public List<Utilisateurs> ListeUtilisateurs { get; set; }
 
     /// <summary>
     /// Constructeur de la classe magasin
     /// </summary>
-    /// <param name="Inventaire">L'inventaire des items dans le magasins</param>
-    /// <param name="ListeUtilisateurs">La liste des utilisateurs dans le magasins</param>
+    /// <param name="inventaire">L'inventaire des items dans le magasins</param>
+    /// <param name="listeUtilisateurs">La liste des utilisateurs dans le magasins</param>
     /// <param name="nom">Le nom du magasins</param>
-    public Magasins(List<Object> Inventaire, List<Object> ListeUtilisateurs, string nom)
+    public Magasins(List<Item> inventaire, List<Utilisateurs> listeUtilisateurs, string nom)
     {
-        this.Inventaire = Inventaire;
+        this.Inventaire = inventaire;
 
-        this.ListeUtilisateurs = ListeUtilisateurs;
+        this.ListeUtilisateurs = listeUtilisateurs;
 
         this.Nom = nom;
     }
@@ -40,7 +41,7 @@ internal class Magasins
     /// <param name="nomUtilisateur">Le nom de l'utilisateur recherché</param>
     /// <returns>Retourne l'objet de l'utilisateur trouvé</returns>
     /// <exception cref="Exception">Fait une exeption si le nom n'est pas trouvé dans la liste</exception>
-    private Utilisateurs TrouverUtilisateurAvcNom(string nomUtilisateur)
+    public Utilisateurs TrouverUtilisateurAvcNom(string nomUtilisateur)
     {
 
         foreach (Utilisateurs utilisateur in this.ListeUtilisateurs)
@@ -56,8 +57,6 @@ internal class Magasins
         
         
     }
-
-
-    //public Utilisateurs Get
+    
 
 }
