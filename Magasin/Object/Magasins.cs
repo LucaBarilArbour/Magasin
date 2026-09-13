@@ -10,7 +10,8 @@ namespace Magasin;
 internal class Magasins
 {
     public string Nom{  get; set; }
-    public List<Item> Inventaire { get; set; }
+    public Compte Compte = new Compte(0);
+    public Inventaire Inventaire { get; set; }
     public List<Utilisateurs> ListeUtilisateurs { get; set; }
 
     /// <summary>
@@ -19,7 +20,7 @@ internal class Magasins
     /// <param name="inventaire">L'inventaire des items dans le magasins</param>
     /// <param name="listeUtilisateurs">La liste des utilisateurs dans le magasins</param>
     /// <param name="nom">Le nom du magasins</param>
-    public Magasins(List<Item> inventaire, List<Utilisateurs> listeUtilisateurs, string nom)
+    public Magasins(Inventaire inventaire, List<Utilisateurs> listeUtilisateurs, string nom)
     {
         this.Inventaire = inventaire;
 

@@ -56,7 +56,7 @@ public class Utilisateurs
     {
         foreach (Item item in this.Inventaire)
         {
-            if (Item.nom == nomItem) //Problème
+            if (Item.nom == nomItem) //TODO:Problème
             {
 
                 return item.Description;
