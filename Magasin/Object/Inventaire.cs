@@ -2,19 +2,18 @@ namespace Magasin.Object;
 
 public class Inventaire
 {
-    public List<Item> ListeItem = new List<Item>();
-
+    public List<Item> ListeItem { get; private set; }
 
     public Inventaire()
     {
-        this.ListeItem = ListeItem;
+        this.ListeItem = new List<Item>();
     }
-    
+
     public void AjouterItem(Item item)
     {
         ListeItem.Add(item);
     }
-    
+
     public void AjouterItems(List<Item> items)
     {
         foreach (Item item in items)
@@ -60,7 +59,4 @@ public class Inventaire
         }
         return LeToString;
     }
-    
-    
-
 }

@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Text;
-using Magasin.Object;
+﻿using System.Text.Json;
 
-namespace Magasin;
+namespace Magasin.Object;
 
 internal class Magasins
 {
-    public string Nom{  get; set; }
+    private static JsonSerializerOptions options = new JsonSerializerOptions
+    {
+        WriteIndented = true,
+    };
+    public string Nom { get; set; }
     public Compte Compte = new Compte(0);
     public Inventaire Inventaire { get; set; }
     public List<Utilisateurs> ListeUtilisateurs { get; set; }
@@ -28,6 +27,7 @@ internal class Magasins
 
         this.Nom = nom;
     }
+
     /// <summary>
     /// Ajoute un utilisateur donné dans la liste des utilisateurs
     /// </summary>
@@ -36,6 +36,7 @@ internal class Magasins
     {
         this.ListeUtilisateurs.Add(utilisateurs);
     }
+
     /// <summary>
     /// Trouve un utilisateur dans la liste d'utilisateurs du magasins
     /// </summary>
@@ -44,20 +45,45 @@ internal class Magasins
     /// <exception cref="Exception">Fait une exeption si le nom n'est pas trouvé dans la liste</exception>
     public Utilisateurs TrouverUtilisateurAvcNom(string nomUtilisateur)
     {
-
         foreach (Utilisateurs utilisateur in this.ListeUtilisateurs)
         {
             if (utilisateur.Nom == nomUtilisateur)
             {
-
                 return utilisateur;
             }
         }
 
         throw new Exception("Le nom n'est pas dans la liste de ce magasin");
-        
-        
     }
-    
 
+    public void SaveInventaire(string nomFichier)
+    {
+        string? basePath = Directory
+            .GetParent(Directory.GetCurrentDirectory())
+            ?.Parent?.Parent?.FullName;
+
+        if (basePath is null)
+        {
+            throw new InvalidOperationException(
+                "Could not resolve base path: directory tree is not deep enough."
+            );
+        }
+
+        string fichier = Path.Combine(basePath, "Data", "Inventaire.json");
+
+        string? dossier = Path.GetDirectoryName(fichier);
+
+        if (dossier is null)
+        {
+            throw new InvalidOperationException($"Could not resolve directory for path: {fichier}");
+        }
+
+        Directory.CreateDirectory(dossier);
+
+        List<Item> inventaire = new List<Item>(this.Inventaire.ListeItem);
+
+        string inventaireJson = JsonSerializer.Serialize(inventaire, options);
+
+        File.WriteAllText(nomFichier, inventaireJson);
+    }
 }
