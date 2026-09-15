@@ -86,4 +86,17 @@ internal class Magasins
 
         File.WriteAllText(nomFichier, inventaireJson);
     }
+
+    public static List<Item> LireInventaireJson(string fichier)
+    {
+        string inventaireJson = File.ReadAllText(fichier);
+        List<Item>? livres = JsonSerializer.Deserialize<List<Item>>(inventaireJson);
+
+        if (livres is null)
+        {
+            throw new InvalidOperationException();
+        }
+
+        return livres;
+    }
 }
